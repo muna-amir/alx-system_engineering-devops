@@ -1,2 +1,1 @@
 command_line_for_the_win
-![Screenshot (142)](https://user-images.githubusercontent.com/117766211/233865300-c87f1387-a351-4b4b-a790-d77e9157f265.png)
