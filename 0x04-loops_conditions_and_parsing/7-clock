@@ -13,5 +13,5 @@ while [ $h -le 12 ]; do
 		m=$((m+1))
 	done
 	m=$((1))
-	h=$((i+1))
+	h=$((h+1))
 done
