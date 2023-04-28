@@ -5,5 +5,4 @@
 # Display in a user-oriented format
 # Show process hierarchy
 
-echo "Currently running processes:"
 ps -auxf
