@@ -12,7 +12,7 @@ int infinite_while(void)
 {
 	while (1)
 	{
-		sleep (1);
+		sleep(1);
 	}
 	return (0);
 }
@@ -41,4 +41,3 @@ int main(void)
 	infinite_while();
 	return (EXIT_SUCCESS);
 }
-		
