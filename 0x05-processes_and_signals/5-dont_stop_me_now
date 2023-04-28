@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# stopped our 4-to_infinity_and_beyond process
+# using ctrl+c in the previous task
+
+pgrep 4-to_infinity_and_beyond
