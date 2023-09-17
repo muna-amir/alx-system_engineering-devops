@@ -1,0 +1,44 @@
+ What Happens when you type google.com on your browser and press enter
+First what is google.com?  It is a website. What is a website though? It is a collection of multiple files which may include HTML CSS Javascript and image files , that tell your browser how to display the site’s images and data. For a website to be accessible to anyone anywhere anytime we need a powerful external computer that is connected to the internet to host it. This powerful computer is called a server.
+When you type google.com on your browser your browser has to figure out which server on the internet is hosting that particular website. It looks for the domain google.com to find the address. What is this address you may ask. An address or an IP address is a unique address given to every device that has access to the internet. It looks as follows 17.172.224.4.  However since numbers are difficult to memorize the need of domain names comes in. Now just like you have a contact list on your phone that matches each phone number with a name for identification we have a Domain Name System which helps the browser find the server on the internet. A process known as the DNS look up is carried out, which is a process of converting human-friendly names into an IP address that computers use to identify each other on the internet.
+The DNS look-up
+So the user first initiates the request which is by entering a uniform resource locater (URL) into the web browser and in order to establish a connection with server hosting the website we need to find the IP address associated with the domain name.
+Your device first checks its local DNS cache which is a temporary storage which stores recently resolved domain names and their corresponding IP addresses. If the IP address of google.com is found and is still valid the IP address is returned to your device and the process ends here.
+If the domain name is not found or the cached information is expired a recursive DNS look up is done . This is simply DNS servers on the internet asking other DNS servers on the internet until it is found.
+TCP Connection Establishment
+Once the browser gets the DNS record with the IP address of the server hosting google.com it initiates a TCP (Transmission Control Protocol) to that IP address on port 80 (HTTP) or port 443 (HTTPS) if you are using a secure connection. The process carried out is known as the TC three way handshake which includes the following steps.
+The client sends a TCP packet with SYN flag set to the server. This packet is known as the SYN packet (synchronize).
+When server receives the SYN packet it acknowledges the request by sending back a TCP packet with both SYN and ACK (acknowledgement) flag set. This packet is known as SYN-ACK packet. It confirms that the server is willing to establish connection.
+Upon receiving the SYN-ACK packet the browser sends an ACK packet back to the server which acknowledges the receipt of the server’s SYN-ACK.
+The client includes the server’s ISN+1 as the acknowledgment number, confirming that its ready to start sending data.
+Firewall
+Before any data is exchanged, it must pass through your computer's firewall. Firewalls act as a security barrier, monitoring incoming and outgoing traffic. They can allow or block data based on predefined security rules. In most cases, legitimate web traffic is allowed to pass through
+TLS Handshake (if using HTTPS)
+Since we are trying to access google which is site that uses HTTPS an additional step occurs. Your browser and the web server perform a TLS (Transport layer security) handshake which is a successor of SSL (Secure Sockets Layer). During this handshake they agree on encryption parameters and exchange cryptographic keys to secure the communication between your browser and the server. This ensures that the data transferred between you and the website is encrypted and secure.
+Load balancing
+Load balancing is the method of distributing network traffic equally across a pool of resources that support an application. Modern applications must process millions of users simultaneously and return the correct text, videos, images, and other data to each user in a fast and reliable manner. To handle such high volumes of traffic, most applications have many resource servers with duplicate data between them. A load balancer is a device that sits between the user and the server group and acts as an invisible facilitator, ensuring that all resource servers are used equally. When you connect to www.google.com, a load balancer may direct your request to one of many Google servers located around the world.
+HTTP Request
+Now that the browser has a connection to the server, it follows the rules of communication for the HTTPs protocol. It starts with the browser sending a HTTP request to the server requesting the contents of the page. The HTTP request contains a request line, headers and a body. The request line contains information that the server can use to determine what the client wants to do.
+The request line contains the following:
+•	a request method, which is one of GET, POST, PUT, PATCH, DELETE, or a handful of other HTTP verbs.
+•	The path pointing to the requested resources.
+•	The HTTP version to communicate with
+In the case of Google, it’s typically a request for the homepage, and the request might look as follows:
+GET / HTTP/1.1
+Host: www.google.com
+Server Processing
+The web server at google.com receives your request and processes it. The web server's job is to handle HTTP requests, retrieve the requested web page, and send it back to your browser. In Google’s case it will execute various algorithms and return a search page tailored to your request.
+HTTP Response
+The server sends back an HTTP response which includes the HTML, CSS, JavaScript, and other resources required to render the Google homepage in your browser.
+Rendering
+Your browser receives the HTML and associated resources from the server. It then renders the webpage, displaying the Google homepage on your screen.
+Often a webpage will reference other resources like images, stylesheets, and scripts. You browser will send additional HTTP requests for these resources to fully load and display the webpage correctly.
+Interactions
+You can now interact with the googe homepage, perform searches, and navigate to other pages within the site.
+Application Server
+Behind the scenes, there is another layer of servers known as application servers. These servers handle the more complex tasks that a website performs, such as processing search queries, managing user accounts, and serving personalized content. Google's application servers play a crucial role in delivering the dynamic and interactive features we expect.
+Database
+Many websites rely on databases to store and retrieve information. In Google's case, databases store vast amounts of data, including web page indexes, user profiles, and search histories. When you search for something on Google, application servers interact with these databases to retrieve relevant results.
+Conclusion
+A URL's journey from the address bar of your browser to the Google search results page is an amazing process that involves many parts that all function flawlessly. Each stage in the web's operation and security, from DNS requests to load balancers, web servers to application servers, databases to secure HTTPS connections, is essential. Understanding this journey helps us better understand the intricate architecture that supports the internet and the services that we use on a daily basis.
+
