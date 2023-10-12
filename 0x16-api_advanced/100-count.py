@@ -3,7 +3,9 @@
 import requests
 
 
-def count_words(subreddit, word_list, instances={}, after="", count=0):
+def count_words(subreddit, word_list, instances=None, after=None, count=0):
+    if instances is None:
+        instances = {}
     """Prints counts of given words found in hot posts of a given subreddit.
     Args:
         subreddit (str): The subreddit to search.
@@ -15,40 +17,44 @@ def count_words(subreddit, word_list, instances={}, after="", count=0):
     url = "https://www.reddit.com/r/{}/hot/.json".format(subreddit)
     headers = {
         "User-Agent": "linux:0x16.api.advanced:v1.0.0 (by /u/bdov_)"
-    }
+        }
     params = {
         "after": after,
         "count": count,
         "limit": 100
     }
-    response = requests.get(url, headers=headers, params=params,
-                            allow_redirects=False)
-    try:
-        results = response.json()
-        if response.status_code == 404:
-            raise Exception
-    except Exception:
-        print("")
+
+    response = requests.get(url, headers=headers, params=params, allow_redirects=False)
+
+    if response.status_code == 404:
+        print("Invalid subreddit or no posts found.")
+        return
+    elif response.status_code != 200:
+        print("Error while fetching data from Reddit.")
         return
 
-    results = results.get("data")
-    after = results.get("after")
-    count += results.get("dist")
-    for c in results.get("children"):
-        title = c.get("data").get("title").lower().split()
+    data = response.json().get("data")
+    after = data.get("after")
+    count += data.get("dist")
+
+    for post in data.get("children"):
+        title = post.get("data").get("title").lower()
         for word in word_list:
-            if word.lower() in title:
-                times = len([t for t in title if t == word.lower()])
-                if instances.get(word) is None:
-                    instances[word] = times
-                else:
-                    instances[word] += times
+            word_count = title.count(word.lower())
+            if word_count > 0:
+                if word not in instances:
+                    instances[word] = 0
+                instances[word] += word_count
 
     if after is None:
-        if len(instances) == 0:
-            print("")
-            return
-        instances = sorted(instances.items(), key=lambda kv: (-kv[1], kv[0]))
-        [print("{}: {}".format(k, v)) for k, v in instances]
+        sorted_instances = sorted(instances.items(), key=lambda x: (-x[1], x[0]))
+        for word, word_count in sorted_instances:
+            print(f"{word}: {word_count}")
     else:
         count_words(subreddit, word_list, instances, after, count)
+
+# Example usage
+subreddit = "programming"
+word_list = ["python", "javascript", "java"]
+count_words(subreddit, word_list)
+
