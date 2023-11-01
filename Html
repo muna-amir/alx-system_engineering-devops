@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Grades Calculator</title>
+</head>
+
+<body>
+    <h1>Student Grades Calculator</h1>
+    <button id="calculateButton">Calculate Grades</button>
+
+    <script>
+        function calculateStudentGrades() {
+    try {
+        for (let i = 1; i <= 20; i++) {
+            const studentName = prompt(`Enter name of student ${i}:`);
+            const assignment1Marks = parseFloat(prompt(`Enter Assignment One marks for ${studentName}:`));
+            const assignment2Marks = parseFloat(prompt(`Enter Assignment Two marks for ${studentName}:`));
+            const catMarks = parseFloat(prompt(`Enter CAT marks for ${studentName}:`));
+            const finalExamMarks = parseFloat(prompt(`Enter Final Exam marks for ${studentName}:`));
+
+            if (isNaN(assignment1Marks) || isNaN(assignment2Marks) || isNaN(catMarks) || isNaN(finalExamMarks)) {
+                throw new Error('Invalid input. Please enter numeric values for marks.');
+            }
+
+            const totalMarks = assignment1Marks + assignment2Marks + catMarks + finalExamMarks;
+            let grade = '';
+
+            if (totalMarks >= 80) {
+                grade = 'A';
+            } else if (totalMarks >= 60) {
+                grade = 'B';
+            } else if (totalMarks >= 40) {
+                grade = 'C';
+            } else {
+                grade = 'D';
+            }
+
+            console.log(`Student: ${studentName}, Total Marks: ${totalMarks}, Grade: ${grade}`);
+        }
+    } catch (error) {
+        console.error(`Error: ${error.message}`);
+    }
+}
+
+document.getElementById('calculateButton').addEventListener('click', calculateStudentGrades);
+
+    </script>
+</body>
+
+</html>
